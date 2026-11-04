@@ -1,65 +1,67 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://unistyl.es/), etc.
- */
-
-import '@/global.css';
-
-import { Platform } from 'react-native';
-
 export const Colors = {
   light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
+    background: '#F2F4F0',
+    surface: '#FFFFFF',
+    surfaceMuted: '#E7EBE5',
+    text: '#111612',
+    textMuted: '#5B645D',
+    accent: '#1F7A4D',
+    onAccent: '#FFFFFF',
+    danger: '#C0392B',
+    onDanger: '#FFFFFF',
+    overlay: 'rgba(17,22,18,0.45)',
   },
   dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
+    background: '#0D110E',
+    surface: '#161C18',
+    surfaceMuted: '#212924',
+    text: '#F1F4F0',
+    textMuted: '#9AA59D',
+    accent: '#4CC38A',
+    onAccent: '#06130B',
+    danger: '#F0705F',
+    onDanger: '#1A0704',
+    overlay: 'rgba(0,0,0,0.6)',
   },
 } as const;
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+export type ThemeColors = { [K in keyof typeof Colors.light]: string };
+export type ThemeColor = keyof ThemeColors;
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: 'var(--font-display)',
-    serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
-    mono: 'var(--font-mono)',
-  },
-});
+export const Fonts = {
+  regular: 'BeVietnamPro_400Regular',
+  medium: 'BeVietnamPro_500Medium',
+  semibold: 'BeVietnamPro_600SemiBold',
+  bold: 'BeVietnamPro_700Bold',
+} as const;
 
 export const Spacing = {
-  half: 2,
   one: 4,
   two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
-  six: 64,
+  three: 12,
+  four: 16,
+  five: 20,
+  six: 24,
+  seven: 32,
+  eight: 48,
 } as const;
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+export const Radius = {
+  small: 10,
+  medium: 16,
+  large: 24,
+  pill: 999,
+} as const;
+
+export const Typography = {
+  display: { fontFamily: Fonts.bold, fontSize: 40, lineHeight: 44, letterSpacing: -1.2 },
+  title: { fontFamily: Fonts.bold, fontSize: 28, lineHeight: 34, letterSpacing: -0.6 },
+  heading: { fontFamily: Fonts.semibold, fontSize: 18, lineHeight: 24, letterSpacing: -0.2 },
+  body: { fontFamily: Fonts.regular, fontSize: 16, lineHeight: 24 },
+  bodyStrong: { fontFamily: Fonts.semibold, fontSize: 16, lineHeight: 24 },
+  caption: { fontFamily: Fonts.medium, fontSize: 14, lineHeight: 20 },
+} as const;
+
+export type TypographyVariant = keyof typeof Typography;
+
+export const MaxContentWidth = 640;

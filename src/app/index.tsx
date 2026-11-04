@@ -1,9 +1,10 @@
-import { Text, View } from 'react-native';
+import { AppText } from '@/components/ui/app-text';
+import { Screen } from '@/components/ui/screen';
 
 export default function Index() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Budget Control</Text>
-    </View>
+    <Screen>
+      <AppText variant="display">Budget Control</AppText>
+    </Screen>
   );
 }
