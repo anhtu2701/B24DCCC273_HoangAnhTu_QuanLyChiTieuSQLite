@@ -1,12 +1,12 @@
-import type { ComponentRef, ReactNode, Ref } from 'react';
-import { StyleSheet, TextInput, View, type TextInputProps } from 'react-native';
+import type { ReactNode, Ref } from 'react';
+import { StyleSheet, TextInput, View, type TextInputInstance, type TextInputProps } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
 import { Fonts, Radius, Spacing } from '@/constants/theme';
 import { useTheme } from '@/hooks/use-theme';
 
 type TextFieldProps = TextInputProps & {
-  ref?: Ref<ComponentRef<typeof TextInput>>;
+  ref?: Ref<TextInputInstance>;
   label: string;
   error?: string | null;
   leading?: ReactNode;
