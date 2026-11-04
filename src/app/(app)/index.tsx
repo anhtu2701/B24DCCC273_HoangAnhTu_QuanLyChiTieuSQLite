@@ -1,10 +1,11 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { AppText } from '@/components/ui/app-text';
 import { EmptyState } from '@/components/ui/empty-state';
-import { LogOut } from '@/components/ui/icons';
+import { LogOut, Plus } from '@/components/ui/icons';
 import { MorphIcon } from '@/components/ui/morph-icon';
 import { PressableScale } from '@/components/ui/pressable-scale';
 import { Screen } from '@/components/ui/screen';
@@ -62,12 +63,19 @@ export default function ExpenseListScreen() {
           </Animated.View>
         )}
       />
+      <PressableScale
+        accessibilityRole="button"
+        accessibilityLabel="Thêm khoản chi"
+        onPress={() => router.push('/expense/form')}
+        style={[styles.fab, { backgroundColor: theme.accent }]}>
+        <MorphIcon icon={Plus} tone="onAccent" size={26} strokeWidth={2.4} />
+      </PressableScale>
     </Screen>
   );
 }
 
 const styles = StyleSheet.create({
-  content: { paddingBottom: Spacing.eight },
+  content: { paddingBottom: 112 },
   header: { marginBottom: Spacing.five },
   titleRow: {
     flexDirection: 'row',
@@ -80,6 +88,16 @@ const styles = StyleSheet.create({
   iconButton: {
     width: 44,
     height: 44,
+    borderRadius: Radius.pill,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fab: {
+    position: 'absolute',
+    right: Spacing.four,
+    bottom: Spacing.four,
+    width: 60,
+    height: 60,
     borderRadius: Radius.pill,
     alignItems: 'center',
     justifyContent: 'center',
