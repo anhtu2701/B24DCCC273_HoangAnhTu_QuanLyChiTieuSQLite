@@ -1,6 +1,8 @@
+import { router } from 'expo-router';
 import { StyleSheet, View } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
+import { PressableScale } from '@/components/ui/pressable-scale';
 import { Radius, Spacing } from '@/constants/theme';
 import { CategoryBadge } from '@/features/expenses/components/category-badge';
 import { useTheme } from '@/hooks/use-theme';
@@ -10,7 +12,12 @@ import type { Expense } from '@/types/expense';
 export function ExpenseRow({ expense }: { expense: Expense }) {
   const theme = useTheme();
   return (
-    <View style={[styles.row, { backgroundColor: theme.surface }]}>
+    <PressableScale
+      accessibilityRole="button"
+      accessibilityLabel={`${expense.name}, ${formatCurrency(expense.amount)}`}
+      scaleTo={0.98}
+      onPress={() => router.push({ pathname: '/expense/[id]', params: { id: String(expense.id) } })}
+      style={[styles.row, { backgroundColor: theme.surface }]}>
       <CategoryBadge category={expense.category} />
       <View style={styles.main}>
         <AppText variant="bodyStrong" numberOfLines={1}>
@@ -23,7 +30,7 @@ export function ExpenseRow({ expense }: { expense: Expense }) {
       <AppText variant="bodyStrong" tabular>
         {formatCurrency(expense.amount)}
       </AppText>
-    </View>
+    </PressableScale>
   );
 }
 
