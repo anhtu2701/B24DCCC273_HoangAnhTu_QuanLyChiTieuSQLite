@@ -5,7 +5,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { AppText } from '@/components/ui/app-text';
 import { EmptyState } from '@/components/ui/empty-state';
-import { LogOut, Plus } from '@/components/ui/icons';
+import { ChartPie, LogOut, Plus } from '@/components/ui/icons';
 import { MorphIcon } from '@/components/ui/morph-icon';
 import { PressableScale } from '@/components/ui/pressable-scale';
 import { Screen } from '@/components/ui/screen';
@@ -32,13 +32,22 @@ export default function ExpenseListScreen() {
     <Screen>
       <View style={styles.titleRow}>
         <AppText variant="title">Chi tiêu</AppText>
-        <PressableScale
-          accessibilityRole="button"
-          accessibilityLabel="Đăng xuất"
-          onPress={signOut}
-          style={[styles.iconButton, { backgroundColor: theme.surface }]}>
-          <MorphIcon icon={LogOut} />
-        </PressableScale>
+        <View style={styles.actions}>
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel="Thống kê"
+            onPress={() => router.push('/statistics')}
+            style={[styles.iconButton, { backgroundColor: theme.surface }]}>
+            <MorphIcon icon={ChartPie} />
+          </PressableScale>
+          <PressableScale
+            accessibilityRole="button"
+            accessibilityLabel="Đăng xuất"
+            onPress={signOut}
+            style={[styles.iconButton, { backgroundColor: theme.surface }]}>
+            <MorphIcon icon={LogOut} />
+          </PressableScale>
+        </View>
       </View>
       <View style={styles.filters}>
         <SearchBar value={keyword} onChangeText={setKeyword} />
@@ -85,6 +94,7 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.four,
   },
   filters: { gap: Spacing.three, paddingBottom: Spacing.four },
+  actions: { flexDirection: 'row', gap: Spacing.two },
   iconButton: {
     width: 44,
     height: 44,
