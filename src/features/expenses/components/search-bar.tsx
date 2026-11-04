@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 
 import { Search, X } from '@/components/ui/icons';
@@ -14,15 +15,18 @@ type SearchBarProps = {
 export function SearchBar({ value, onChangeText }: SearchBarProps) {
   const theme = useTheme();
   const hasValue = value.length > 0;
+  const [focused, setFocused] = useState(false);
 
   return (
-    <View style={[styles.root, { backgroundColor: theme.surface }]}>
+    <View style={[styles.root, { backgroundColor: theme.surface, borderColor: focused ? theme.accent : theme.border }]}>
       <TextInput
         accessibilityLabel="Tìm kiếm khoản chi"
         value={value}
         onChangeText={onChangeText}
         placeholder="Tìm theo tên khoản chi"
         placeholderTextColor={theme.textMuted}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
         returnKeyType="search"
         autoCorrect={false}
         style={[styles.input, { color: theme.text }]}
@@ -47,6 +51,7 @@ const styles = StyleSheet.create({
     minHeight: 52,
     paddingHorizontal: Spacing.four,
     borderRadius: Radius.medium,
+    borderWidth: 1.5,
   },
   input: { flex: 1, fontFamily: Fonts.medium, fontSize: 16, paddingVertical: Spacing.three },
 });

@@ -34,7 +34,7 @@ export function DateField({ label, value, onChange, error }: DateFieldProps) {
       <AppText variant="caption" color="textMuted">
         {label}
       </AppText>
-      <View style={[styles.field, { backgroundColor: theme.surface, borderColor: error ? theme.danger : 'transparent' }]}>
+      <View style={[styles.field, { backgroundColor: theme.surface, borderColor: error ? theme.danger : theme.border }]}>
         {Platform.OS === 'ios' ? (
           <DateTimePicker
             value={current}

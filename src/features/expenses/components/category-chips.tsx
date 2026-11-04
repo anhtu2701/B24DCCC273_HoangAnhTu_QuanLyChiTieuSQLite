@@ -35,7 +35,7 @@ export function CategoryChips({ value, onChange, includeAll = true }: CategoryCh
             accessibilityRole="button"
             accessibilityState={{ selected }}
             onPress={() => onChange(option.value)}
-            style={[styles.chip, { backgroundColor: selected ? theme.text : theme.surface }]}>
+            style={[styles.chip, { backgroundColor: selected ? theme.text : theme.surface, borderColor: selected ? theme.text : theme.border }]}>
             <AppText variant="caption" style={{ color: selected ? theme.background : theme.text }}>
               {option.label}
             </AppText>
@@ -52,5 +52,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.four,
     paddingVertical: Spacing.three,
     borderRadius: Radius.pill,
+    borderWidth: 1.5,
   },
 });

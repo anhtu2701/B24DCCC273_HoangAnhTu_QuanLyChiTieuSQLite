@@ -1,4 +1,4 @@
-import type { ReactNode, Ref } from 'react';
+import { useState, type ReactNode, type Ref } from 'react';
 import { StyleSheet, TextInput, View, type TextInputInstance, type TextInputProps } from 'react-native';
 
 import { AppText } from '@/components/ui/app-text';
@@ -13,8 +13,10 @@ type TextFieldProps = TextInputProps & {
   trailing?: ReactNode;
 };
 
-export function TextField({ ref, label, error, leading, trailing, multiline, style, ...rest }: TextFieldProps) {
+export function TextField({ ref, label, error, leading, trailing, multiline, style, onFocus, onBlur, ...rest }: TextFieldProps) {
   const theme = useTheme();
+  const [focused, setFocused] = useState(false);
+  const borderColor = error ? theme.danger : focused ? theme.accent : theme.border;
   return (
     <View style={styles.wrapper}>
       <AppText variant="caption" color="textMuted">
@@ -23,7 +25,7 @@ export function TextField({ ref, label, error, leading, trailing, multiline, sty
       <View
         style={[
           styles.field,
-          { backgroundColor: theme.surface, borderColor: error ? theme.danger : 'transparent' },
+          { backgroundColor: theme.surface, borderColor },
           multiline && styles.multiline,
         ]}>
         {leading}
@@ -33,6 +35,14 @@ export function TextField({ ref, label, error, leading, trailing, multiline, sty
           placeholderTextColor={theme.textMuted}
           multiline={multiline}
           textAlignVertical={multiline ? 'top' : 'center'}
+          onFocus={(event) => {
+            setFocused(true);
+            onFocus?.(event);
+          }}
+          onBlur={(event) => {
+            setFocused(false);
+            onBlur?.(event);
+          }}
           style={[styles.input, { color: theme.text }, multiline && styles.inputMultiline, style]}
           {...rest}
         />
