@@ -2,6 +2,7 @@ import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 import { useSQLiteContext } from 'expo-sqlite';
 import { useCallback, useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 import { AppText } from '@/components/ui/app-text';
 import { Button } from '@/components/ui/button';
@@ -63,7 +64,7 @@ export default function ExpenseDetailScreen() {
       <ScreenHeader title="Chi tiết khoản chi" />
       {expense ? (
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.content}>
-          <View style={styles.hero}>
+          <Animated.View entering={FadeInDown.duration(420)} style={styles.hero}>
             <CategoryBadge category={expense.category} size={64} />
             <AppText variant="heading" style={styles.center}>
               {expense.name}
@@ -71,15 +72,15 @@ export default function ExpenseDetailScreen() {
             <AppText variant="display" tabular adjustsFontSizeToFit numberOfLines={1}>
               {formatCurrency(expense.amount)}
             </AppText>
-          </View>
+          </Animated.View>
 
-          <View style={[styles.card, { backgroundColor: theme.surface }]}>
+          <Animated.View entering={FadeInDown.delay(100).duration(420)} style={[styles.card, { backgroundColor: theme.surface }]}>
             <DetailRow label="Danh mục" value={expense.category} />
             <DetailRow label="Ngày chi tiêu" value={formatDate(expense.date)} />
             <DetailRow label="Ghi chú" value={expense.note || 'Không có ghi chú'} />
-          </View>
+          </Animated.View>
 
-          <View style={styles.actions}>
+          <Animated.View entering={FadeInDown.delay(200).duration(420)} style={styles.actions}>
             <Button
               label="Sửa khoản chi"
               icon={<MorphIcon icon={Pencil} tone="onAccent" size={20} />}
@@ -91,7 +92,7 @@ export default function ExpenseDetailScreen() {
               icon={<MorphIcon icon={Trash2} tone="danger" size={20} />}
               onPress={() => setConfirming(true)}
             />
-          </View>
+          </Animated.View>
         </ScrollView>
       ) : null}
 

@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
-import Animated, { FadeInDown } from 'react-native-reanimated';
+import Animated, { FadeInDown, FadeOut, LinearTransition } from 'react-native-reanimated';
 
 import { AppText } from '@/components/ui/app-text';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -67,7 +67,10 @@ export default function ExpenseListScreen() {
         }
         ListEmptyComponent={loaded ? <EmptyState title="Chưa có khoản chi nào" /> : undefined}
         renderItem={({ item, index }) => (
-          <Animated.View entering={FadeInDown.delay(Math.min(index, 8) * 50).duration(380)}>
+          <Animated.View
+            entering={FadeInDown.delay(Math.min(index, 8) * 50).duration(380)}
+            exiting={FadeOut.duration(160)}
+            layout={LinearTransition.duration(220)}>
             <ExpenseRow expense={item} />
           </Animated.View>
         )}

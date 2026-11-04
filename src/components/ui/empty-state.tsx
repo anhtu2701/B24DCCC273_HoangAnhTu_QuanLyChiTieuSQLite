@@ -1,12 +1,13 @@
 import type { ReactNode } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { AppText } from '@/components/ui/app-text';
 import { Spacing } from '@/constants/theme';
 
 export function EmptyState({ title, description, icon }: { title: string; description?: string; icon?: ReactNode }) {
   return (
-    <View style={styles.root}>
+    <Animated.View entering={FadeIn.duration(300)} style={styles.root}>
       {icon}
       <AppText variant="heading">{title}</AppText>
       {description ? (
@@ -14,7 +15,7 @@ export function EmptyState({ title, description, icon }: { title: string; descri
           {description}
         </AppText>
       ) : null}
-    </View>
+    </Animated.View>
   );
 }
 
