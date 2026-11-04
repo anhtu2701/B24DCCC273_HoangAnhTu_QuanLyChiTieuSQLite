@@ -12,6 +12,8 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { DatabaseProvider } from '@/db/client';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -32,7 +34,9 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <StatusBar style="auto" />
-        <Slot />
+        <DatabaseProvider>
+          <Slot />
+        </DatabaseProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
